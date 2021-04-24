@@ -80,18 +80,14 @@ def get_derivative_y(image: np.ndarray) -> np.ndarray:
                     borderType=cv.BORDER_REFLECT_101)
 
 
-def get_neighborhood(row_index: int, col_index: int, ksize: int = 3):
+def get_neighborhood(image: np.ndarray, row_index: int, col_index: int, ksize: int = 3):
     radius = np.floor(ksize / 2)
     col_low = col_index - radius
     col_high = col_index + radius
     row_low = row_index - radius
     row_high = row_index + radius
 
-    neighborhood = []
-
-    for col in range(col_low, col_high + 1):
-        for row in range(row_low, row_high + 1):
-            neighborhood.append((row,col))
+    neighborhood = image[row_low: row_high + 1][col_low: col_high + 1]
 
     return neighborhood
 
