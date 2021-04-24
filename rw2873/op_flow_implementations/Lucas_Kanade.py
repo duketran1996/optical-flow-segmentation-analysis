@@ -1,9 +1,5 @@
-import os
 import image_functions
-import cv2 as cv
 import numpy as np
-import matplotlib.pyplot as plot
-import math
 
 
 def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
@@ -17,6 +13,19 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
     # PRECONDITION: it is assumed by the program that frame 1 is
     #               at time-step 't' and frame 2 is at time-step
     #               't+1'.
+
+    '''
+    Pipeline steps:
+        Sobel derivatives of x and y
+            (includes Gaussian smoothing)
+        Gradient Magnitude on 1st derivs
+        delta_time = frame (t) - frame(t+1)
+        Brightness constancy = gm_x * u + gm_y * v + delta_time = 0
+        Define an aperture window (5x5)
+        Populate a linear system for each pixel in neighborhood
+        Compute optical flow score
+        Place into optical flow image array
+    '''
 
     APERTURE_SIZE = 5
     INFORMATION_LIMIT = np.floor(APERTURE_SIZE / 2).astype(int)
@@ -49,19 +58,6 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
 
     return optical_flow
 
-'''
-Pipeline steps:
-    Sobel derivatives of x and y 
-        (includes Gaussian smoothing)
-    Gradient Magnitude on 1st derivs
-    delta_time = frame (t) - frame(t+1)
-    Brightness constancy = gm_x * u + gm_y * v + delta_time = 0
-    Define an aperture window (5x5)
-    Populate a linear system for each pixel in neighborhood
-    
-    
-'''
-
 
 def get_linear_system(neighborhood: list, image_deriv_x: np.ndarray,
                       image_deriv_y: np.ndarray, image_deriv_t: np.ndarray):
@@ -80,9 +76,3 @@ def solve_linear_system(a, b):
     solution = np.linalg.lstsq(a, b)
     solution = np.array(solution[0])
     return solution
-
-
-
-'''
-[
-'''
