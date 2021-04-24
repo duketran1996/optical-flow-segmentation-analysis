@@ -16,14 +16,12 @@ import math
 
 import image_functions
 
-image_1 = image_functions.open_image('sources/images/marple13_20.jpg')
-image_2 = image_functions.open_image('sources/images/marple13_21.jpg')
+def main():
+    n = image_functions.get_neighborhood(5, 5, ksize=3)
+    print(n)
 
-image_2 = image_functions.output_intensity_mapping(image_2)
-
-im_2_gauss_blur = cv.bilateralFilter(image_2, 9, 200, 50)
-
-image_functions.output_image(im_2_gauss_blur, 'test_im2_bi_009_200_050.png')
+if __name__ == '__main__':
+    main()
 
 
 
