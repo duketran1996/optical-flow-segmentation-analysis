@@ -80,6 +80,8 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
             # Calculate optical flow value at the pixel
             optical_flow[row][col] = op_flow_mag
 
+    print(np.max(optical_flow))
+
     return optical_flow
 
 
