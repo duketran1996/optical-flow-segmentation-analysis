@@ -71,24 +71,47 @@ def zero_padding(num_layers: int, image: np.ndarray):
 
 
 def get_derivative_x(image: np.ndarray) -> np.ndarray:
-    return cv.Sobel(image, ddepth=1, dx=1, dy=0, ksize=3,
-                    borderType=cv.BORDER_REFLECT_101)
+    return cv.Sobel(image, cv.CV_64F, 1, 0, ksize=3)
 
 
 def get_derivative_y(image: np.ndarray) -> np.ndarray:
-    return cv.Sobel(image, ddepth=1, dx=0, dy=1, ksize=3,
-                    borderType=cv.BORDER_REFLECT_101)
+    return cv.Sobel(image, cv.CV_64F, 0, 1, ksize=3)
 
 
-def get_neighborhood(image: np.ndarray, row_index: int, col_index: int, ksize: int = 3):
-    radius = np.floor(ksize / 2)
+def threshold_image(image: np.ndarray, thresh: int,
+                    below_val: int=0, above_val: int=255):
+    out_image = np.zeros(image.shape)
+    for row in range(0, image.shape[0]):
+        for col in range(0, image.shape[1]):
+            if image[row, col] < thresh:
+                image[row, col] = below_val
+            else:
+                image[ row, col] = above_val
+
+    return out_image
+
+
+def get_neighborhood(row_index: int, col_index: int, ksize: int = 3):
+    radius = np.floor(ksize / 2).astype(int)
     col_low = col_index - radius
     col_high = col_index + radius
     row_low = row_index - radius
     row_high = row_index + radius
 
-    neighborhood = image[row_low: row_high + 1][col_low: col_high + 1]
+    neighborhood = []
+
+    for row in range(row_low, row_high + 1):
+        for col in range(col_low, col_high + 1):
+            neighborhood.append((row, col))
 
     return neighborhood
 
+
+def display_image(image: np.ndarray):
+    image = output_intensity_mapping(image)
+    threshold_image(image, 145)
+
+    fig = plot.figure(figsize=(7, 7))
+    plot.imshow(image, cmap='gray')
+    plot.show()
 
