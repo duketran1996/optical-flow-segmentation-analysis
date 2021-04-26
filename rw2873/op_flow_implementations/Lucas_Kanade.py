@@ -69,13 +69,13 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
             matrix_b = np.array([[e], [f]])
             '''
             # Solve for unknown parameters with least squares
-            velocities = np.linalg.lstsq(matrix_a, neighborhood_t, rcond=None)
-            velocities = velocities[0]
+            op_flow = np.linalg.lstsq(matrix_a, neighborhood_t, rcond=None)
+            op_flow = op_flow.dot(np.transpose(op_flow))
+            op_flow_sum = op_flow[0] + op_flow[1]
+            op_flow_mag = np.sqrt(op_flow_sum)
 
             # Calculate optical flow value at the pixel
-            optical_flow[row][col] = partial_x * velocities[0] + \
-                                     partial_y * velocities[1] + \
-                                     deriv_time
+            optical_flow[row][col] = op_flow_mag
 
     return optical_flow
 

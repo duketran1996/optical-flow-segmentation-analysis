@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="07e67ab0-7669-466a-846e-cf828b95aef6" name="Default Changelist" comment="Functional Lucas Kanade." />
+    <list default="true" id="07e67ab0-7669-466a-846e-cf828b95aef6" name="Default Changelist" comment="Functional Lucas Kanade.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/Lucas_Kanade.py" beforeDir="false" afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/Lucas_Kanade.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,17 +67,14 @@
       <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="optical-flow-segmentation-analysis" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="C:\Users\russe\anaconda3\envs\Computer_Vision\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/rw2873/op_flow_implementations" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/rw2873/op_flow_implementations/main.py" />
       <option name="PARAMETERS" value="" />
