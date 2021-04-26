@@ -92,3 +92,8 @@ def get_neighborhood(image: np.ndarray, row_index: int, col_index: int, ksize: i
     return neighborhood
 
 
+def display_image(image: np.ndarray):
+    fig = plot.figure(figsize=(7, 7))
+    plot.imshow(image, cmap='gray')
+    plot.show()
+
