@@ -8,21 +8,19 @@
 #                  Ye Xu                #
 #########################################
 
-import os
-import cv2 as cv
-import numpy as np
-import matplotlib.pyplot as plot
-import math
-
+import Lucas_Kanade as LK
 import image_functions
 
 def main():
-    n = image_functions.get_neighborhood(5, 5, ksize=3)
-    print(n)
+    frame_1 = image_functions.open_image('./sources/images/marple13_20.jpg')
+    frame_2 = image_functions.open_image('./sources/images/marple13_21.jpg')
+
+    op_flow = LK.flow(frame_1, frame_2)
+
+    image_functions.display_image(op_flow)
+
+    return 0
+
 
 if __name__ == '__main__':
     main()
-
-
-
-

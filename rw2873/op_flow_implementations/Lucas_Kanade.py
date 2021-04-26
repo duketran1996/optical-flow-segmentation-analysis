@@ -39,33 +39,38 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
 
     optical_flow = np.zeros(image_1.shape)
 
-    for row in range(INFORMATION_LIMIT, image_1.shape[0] - INFORMATION_LIMIT):
-        for col in range(INFORMATION_LIMIT, image_1.shape[1] - INFORMATION_LIMIT):
+    for row in range(INFORMATION_LIMIT, image_1.shape[0] - INFORMATION_LIMIT, APERTURE_SIZE):
+        print('Processing row ', row)
+        for col in range(INFORMATION_LIMIT, image_1.shape[1] - INFORMATION_LIMIT, APERTURE_SIZE):
+            # Initialize known values for point
             partial_x = im_1_deriv_x[row][col]
             partial_y = im_1_deriv_y[row][col]
             deriv_time = im_deriv_time[row][col]
 
             # Solve for disparity parameters u and v by least squares
-            neighborhood_x = image_functions.get_neighborhood(im_1_deriv_x, row, col,
-                                                              APERTURE_SIZE)
-            neighborhood_y = image_functions.get_neighborhood(im_1_deriv_y, row, col,
-                                                              APERTURE_SIZE)
-            neighborhood_t = image_functions.get_neighborhood(im_deriv_time, row, col,
-                                                              APERTURE_SIZE)
+            neighborhood_x = im_1_deriv_x[row-INFORMATION_LIMIT:row+INFORMATION_LIMIT+1,
+                             col-INFORMATION_LIMIT:col+INFORMATION_LIMIT+1].reshape(-1, 1)
+            neighborhood_y = im_1_deriv_y[row-INFORMATION_LIMIT:row+INFORMATION_LIMIT+1,
+                             col-INFORMATION_LIMIT:col+INFORMATION_LIMIT+1].reshape(-1, 1)
+            neighborhood_t = im_deriv_time[row-INFORMATION_LIMIT:row+INFORMATION_LIMIT+1,
+                             col-INFORMATION_LIMIT:col+INFORMATION_LIMIT+1].reshape(-1, 1) * (-1)
+            matrix_a = np.hstack([neighborhood_x, neighborhood_y])
 
-            # Calculate matrix representations of derivative neighborhoods
+            '''
+            # Attempt to implent the matrix multiplication version of least squares
             a = np.sum(np.dot(neighborhood_x, neighborhood_x))
             b = np.sum(np.dot(neighborhood_x, neighborhood_y))
             c = np.sum(np.dot(neighborhood_y, neighborhood_x))
             d = np.sum(np.dot(neighborhood_y, neighborhood_y))
             e = np.sum(np.dot(neighborhood_x, neighborhood_t)) * -1
             f = np.sum(np.dot(neighborhood_y, neighborhood_t)) * -1
-
+            
             matrix_a = np.array([[a, b], [c, d]])
             matrix_b = np.array([[e], [f]])
-
+            '''
             # Solve for unknown parameters with least squares
-            velocities = np.linalg.lstsq(matrix_a, matrix_b)
+            velocities = np.linalg.lstsq(matrix_a, neighborhood_t, rcond=None)
+            velocities = velocities[0]
 
             # Calculate optical flow value at the pixel
             optical_flow[row][col] = partial_x * velocities[0] + \
