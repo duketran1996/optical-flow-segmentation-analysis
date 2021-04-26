@@ -109,7 +109,7 @@ def get_neighborhood(row_index: int, col_index: int, ksize: int = 3):
 
 def display_image(image: np.ndarray):
     image = output_intensity_mapping(image)
-    threshold_image(image, 145)
+    # threshold_image(image, 145)
 
     fig = plot.figure(figsize=(7, 7))
     plot.imshow(image, cmap='gray')

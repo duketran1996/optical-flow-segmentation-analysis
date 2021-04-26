@@ -39,13 +39,12 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
 
     optical_flow = np.zeros(image_1.shape)
 
-    for row in range(INFORMATION_LIMIT, image_1.shape[0] - INFORMATION_LIMIT, APERTURE_SIZE):
-        print('Processing row ', row)
-        for col in range(INFORMATION_LIMIT, image_1.shape[1] - INFORMATION_LIMIT, APERTURE_SIZE):
+    for row in range(INFORMATION_LIMIT, image_1.shape[0] - INFORMATION_LIMIT, 2):
+        for col in range(INFORMATION_LIMIT, image_1.shape[1] - INFORMATION_LIMIT, 2):
             # Initialize known values for point
-            partial_x = im_1_deriv_x[row][col]
-            partial_y = im_1_deriv_y[row][col]
-            deriv_time = im_deriv_time[row][col]
+            # partial_x = im_1_deriv_x[row][col]
+            # partial_y = im_1_deriv_y[row][col]
+            # deriv_time = im_deriv_time[row][col]
 
             # Solve for disparity parameters u and v by least squares
             neighborhood_x = im_1_deriv_x[row-INFORMATION_LIMIT:row+INFORMATION_LIMIT+1,
@@ -70,8 +69,12 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
             '''
             # Solve for unknown parameters with least squares
             op_flow = np.linalg.lstsq(matrix_a, neighborhood_t, rcond=None)
-            op_flow = op_flow.dot(np.transpose(op_flow))
-            op_flow_sum = op_flow[0] + op_flow[1]
+
+            # brightness_constancy = partial_x * op_flow[0][0] + partial_y * op_flow[0][1] + deriv_time
+            # print('pixel: (',row, col,')\t Br.Const: ', brightness_constancy)
+
+            op_flow = op_flow[0].dot(np.transpose(op_flow[0]))
+            op_flow_sum = np.sum(op_flow)
             op_flow_mag = np.sqrt(op_flow_sum)
 
             # Calculate optical flow value at the pixel
