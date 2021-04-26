@@ -8,13 +8,7 @@
 #                  Ye Xu                #
 #########################################
 
-import os
-import cv2 as cv
-import numpy as np
-import matplotlib.pyplot as plot
-import math
 import Lucas_Kanade as LK
-
 import image_functions
 
 def main():
@@ -25,10 +19,8 @@ def main():
 
     image_functions.display_image(op_flow)
 
+    return 0
+
 
 if __name__ == '__main__':
     main()
-
-
-
-
