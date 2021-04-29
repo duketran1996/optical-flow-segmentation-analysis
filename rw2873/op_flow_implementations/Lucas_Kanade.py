@@ -2,7 +2,7 @@ import image_functions
 import numpy as np
 
 
-def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
+def flow(image_1: np.ndarray, image_2: np.ndarray, aperture_size: int) -> np.ndarray:
     # This is the driver function for the Lucas-Kanade program.
     # Users should include Lucas_Kanade.py in their import list,
     # after, calls can be made to the optical flow pipeline by
@@ -27,7 +27,7 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
         Place into optical flow image array
     '''
 
-    APERTURE_SIZE = 5
+    APERTURE_SIZE = aperture_size
     INFORMATION_LIMIT = np.floor(APERTURE_SIZE / 2).astype(int)
 
     # Smooth and get 1st derivatives for both images (uses 3x3 Sobbel)
@@ -37,10 +37,14 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
     # Calculate forward difference between the frames
     im_deriv_time = image_1 - image_2
 
-    optical_flow = np.zeros(image_1.shape)
+    optical_flow = np.zeros((image_1.shape[0], image_1.shape[1], 2))
 
-    for row in range(INFORMATION_LIMIT, image_1.shape[0] - INFORMATION_LIMIT, 2):
-        for col in range(INFORMATION_LIMIT, image_1.shape[1] - INFORMATION_LIMIT, 2):
+    for row in range(INFORMATION_LIMIT,
+                     image_1.shape[0] - INFORMATION_LIMIT,
+                     INFORMATION_LIMIT):
+        for col in range(INFORMATION_LIMIT,
+                         image_1.shape[1] - INFORMATION_LIMIT,
+                         INFORMATION_LIMIT):
             # Initialize known values for point
             # partial_x = im_1_deriv_x[row][col]
             # partial_y = im_1_deriv_y[row][col]
@@ -56,7 +60,7 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
             matrix_a = np.hstack([neighborhood_x, neighborhood_y])
 
             '''
-            # Attempt to implent the matrix multiplication version of least squares
+            # Attempt to implement the matrix multiplication version of least squares
             a = np.sum(np.dot(neighborhood_x, neighborhood_x))
             b = np.sum(np.dot(neighborhood_x, neighborhood_y))
             c = np.sum(np.dot(neighborhood_y, neighborhood_x))
@@ -73,14 +77,11 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
             # brightness_constancy = partial_x * op_flow[0][0] + partial_y * op_flow[0][1] + deriv_time
             # print('pixel: (',row, col,')\t Br.Const: ', brightness_constancy)
 
-            op_flow = op_flow[0].dot(np.transpose(op_flow[0]))
-            op_flow_sum = np.sum(op_flow)
-            op_flow_mag = np.sqrt(op_flow_sum)
+            op_flow = op_flow[0]
 
             # Calculate optical flow value at the pixel
-            optical_flow[row][col] = op_flow_mag
-
-    print(np.max(optical_flow))
+            optical_flow[row][col][0] = op_flow[0]  # u value
+            optical_flow[row][col][1] = op_flow[1]  # v value
 
     return optical_flow
 

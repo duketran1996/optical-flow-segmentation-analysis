@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="07e67ab0-7669-466a-846e-cf828b95aef6" name="Default Changelist" comment="" />
+    <list default="true" id="07e67ab0-7669-466a-846e-cf828b95aef6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/draw.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/rw2873_extra_credit_project.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/sources/ec_project/sphere0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/sources/ec_project/sphere1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/sources/ec_project/traffic0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/sources/ec_project/traffic1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/Lucas_Kanade.py" beforeDir="false" afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/Lucas_Kanade.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -24,11 +41,15 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1rgWNIMsLr6RAIPU3BtVn1g86Rp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -39,6 +60,11 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\russe\Dropbox\Wustenberg\!_Tandon\6643_Vision\Repos\rw2873_CV_Project_F\optical-flow-segmentation-analysis\rw2873\op_flow_implementations" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -95,6 +121,9 @@
       <workItem from="1619398965363" duration="9313000" />
       <workItem from="1619408520974" duration="27000" />
       <workItem from="1619445264200" duration="3136000" />
+      <workItem from="1619453886032" duration="681000" />
+      <workItem from="1619537708418" duration="716000" />
+      <workItem from="1619708581853" duration="2816000" />
     </task>
     <task id="LOCAL-00001" summary="Basic Drawing Function">
       <created>1619398862480</created>
@@ -143,6 +172,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Basic Drawing Function" />
     <MESSAGE value="Functional Lucas Kanade." />
     <option name="LAST_COMMIT_MESSAGE" value="Functional Lucas Kanade." />
