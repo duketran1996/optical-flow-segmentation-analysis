@@ -18,7 +18,7 @@ def draw_flow_intensity(op_flow: np.ndarray):
     return out_im
 
 
-def flow_arrows(image: np.ndarray, op_flow: np.ndarray):
+def flow_arrows(image: np.ndarray, op_flow: np.ndarray, aperture: int, scale: int):
     '''
     op_flow = (row, col, (u,v))
 
@@ -27,8 +27,7 @@ def flow_arrows(image: np.ndarray, op_flow: np.ndarray):
 
     fig = plot.figure(figsize=(7, 7))
     plot.imshow(image, cmap='gray')
-    for row in range(0, op_flow.shape[0], 10):
-        for col in range(0, op_flow.shape[1], 10):
-            plot.quiver(col, row, op_flow[row, col, 0], op_flow[row, col, 1], scale=5, color='blue')
-            print(row, col)
+    for row in range(0, op_flow.shape[0], aperture):
+        for col in range(0, op_flow.shape[1], aperture):
+            plot.quiver(col, row, op_flow[row, col, 0], op_flow[row, col, 1], scale=scale, color='blue')
     plot.show()
