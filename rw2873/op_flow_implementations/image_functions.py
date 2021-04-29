@@ -115,3 +115,25 @@ def display_image(image: np.ndarray):
     plot.imshow(image, cmap='gray')
     plot.show()
 
+def get_flow_magnitude_array(op_flow: np.ndarray) -> np.ndarray:
+    mag = np.zeros((op_flow.shape[0], op_flow.shape[1]))
+    for row in range(0, op_flow.shape[0]):
+        for col in range(0, op_flow.shape[1]):
+            u = op_flow[row][col][0]
+            v = op_flow[row][col][1]
+
+            mag[row][col] = np.sqrt((u*u) + (v*v))
+
+    return mag
+
+def get_flow_angle_array(op_flow: np.ndarray) -> np.ndarray:
+    angles = np.zeros((op_flow.shape[0], op_flow.shape[1]))
+
+    for row in range(0, op_flow.shape[0]):
+        for col in range(0, op_flow.shape[1]):
+            u = op_flow[row][col][0]
+            v = op_flow[row][col][1]
+
+            angles[row][col] = np.arctan2(v, u) * (180 / np.pi)
+
+    return angles

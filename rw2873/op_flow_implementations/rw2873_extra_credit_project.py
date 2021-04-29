@@ -20,13 +20,13 @@ def ec_proj_main():
     im_sphere_0_dy = image_functions.get_derivative_y(im_sphere_0)
     im_sphere_0_dt = im_sphere_0 - im_sphere_1
 
-
-    op_flow = LK.flow(im_traffic_1, im_traffic_0, 5)
+    op_flow = LK.flow(im_traffic_1, im_traffic_0, 15, True)
     out_im = draw.draw_flow_intensity(op_flow)
 
     image_functions.display_image(out_im)
 
-    draw.flow_arrows(im_traffic_1, op_flow, 5, 50)
+    hsv = draw.draw_flow_hsv(op_flow)
+    image_functions.display_image(hsv)
 
 
     return
