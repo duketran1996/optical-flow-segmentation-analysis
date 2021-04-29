@@ -11,15 +11,13 @@
 import Lucas_Kanade as LK
 import image_functions
 import draw
+import rw2873_extra_credit_project as ec
 
 def main():
     frame_1 = image_functions.open_image('./sources/images/marple13_20.jpg')
     frame_2 = image_functions.open_image('./sources/images/marple13_21.jpg')
 
-    op_flow = LK.flow(frame_1, frame_2, 5)
-    out_im = draw.draw_flow_intensity(op_flow)
-
-    image_functions.display_image(out_im)
+    ec.ec_proj_main()
 
     return 0
 

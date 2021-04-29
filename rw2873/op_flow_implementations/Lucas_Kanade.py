@@ -73,10 +73,6 @@ def flow(image_1: np.ndarray, image_2: np.ndarray, aperture_size: int) -> np.nda
             '''
             # Solve for unknown parameters with least squares
             op_flow = np.linalg.lstsq(matrix_a, neighborhood_t, rcond=None)
-
-            # brightness_constancy = partial_x * op_flow[0][0] + partial_y * op_flow[0][1] + deriv_time
-            # print('pixel: (',row, col,')\t Br.Const: ', brightness_constancy)
-
             op_flow = op_flow[0]
 
             # Calculate optical flow value at the pixel
