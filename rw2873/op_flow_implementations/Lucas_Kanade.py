@@ -2,7 +2,8 @@ import image_functions
 import numpy as np
 
 
-def flow(image_1: np.ndarray, image_2: np.ndarray, aperture_size: int) -> np.ndarray:
+def flow(image_1: np.ndarray, image_2: np.ndarray,
+         aperture_size: int, blobby: bool) -> np.ndarray:
     # This is the driver function for the Lucas-Kanade program.
     # Users should include Lucas_Kanade.py in their import list,
     # after, calls can be made to the optical flow pipeline by
@@ -75,29 +76,14 @@ def flow(image_1: np.ndarray, image_2: np.ndarray, aperture_size: int) -> np.nda
             op_flow = np.linalg.lstsq(matrix_a, neighborhood_t, rcond=None)
             op_flow = op_flow[0]
 
-            # Calculate optical flow value at the pixel
-            optical_flow[row][col][0] = op_flow[0]  # u value
-            optical_flow[row][col][1] = op_flow[1]  # v value
+            if blobby:
+                # Calculate optical flow value for the aperture patch
+                for sub_row in range(row-INFORMATION_LIMIT, row+INFORMATION_LIMIT + 1):
+                    for sub_col in range(col - INFORMATION_LIMIT, col + INFORMATION_LIMIT + 1):
+                        optical_flow[sub_row][sub_col][0] = op_flow[0]  # u value
+                        optical_flow[sub_row][sub_col][1] = op_flow[1]  # v value
+            else:
+                optical_flow[row][col][0] = op_flow[0]
+                optical_flow[row][col][1] = op_flow[1]
 
     return optical_flow
-
-
-'''
-def get_linear_system(neighborhood: list, image_deriv_x: np.ndarray,
-                      image_deriv_y: np.ndarray, image_deriv_t: np.ndarray):
-    a = []
-    b = []
-
-    for p in range(0,len(neighborhood)):
-        a.append([image_deriv_x[neighborhood[p][0]][neighborhood[p][1]],
-                 image_deriv_y[neighborhood[p][0]][neighborhood[p][1]]])
-        b.append(image_deriv_t[neighborhood[p][0]][neighborhood[p][1]])
-
-    return a, b
-
-
-def solve_linear_system(a, b):
-    solution = np.linalg.lstsq(a, b)
-    solution = np.array(solution[0])
-    return solution
-'''
