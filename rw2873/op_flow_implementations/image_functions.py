@@ -15,7 +15,7 @@ def open_image(image_path: str):
 def output_intensity_mapping(image: np.ndarray):
     output_im = np.zeros(image.shape, dtype=np.uint8)
     arr_max = image.max()
-    arr_min = image.min()
+    arr_min = image.min() + 1e-10
 
     for index in range(len(image.ravel())):
         output_im.ravel()[index] = \

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plot
 import image_functions
 
 
-def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
+def flow(image_1: np.ndarray, image_2: np.ndarray, lamb: float) -> np.ndarray:
     # This is the driver function for the Horne-Schunk program.
     # Users should include Horne_Schunk.py in their import list,
     # after, calls can be made to the optical flow pipeline by
@@ -21,23 +21,55 @@ def flow(image_1: np.ndarray, image_2: np.ndarray) -> np.ndarray:
     im_deriv_time = image_1 - image_2
 
     # Initialize output array and looping parameters
-    optical_flow = np.zeros((image_1.shape[0], image_1.shape[1], 2))
+
+    u = np.zeros((image_1.shape[0], image_1.shape[1]))
+    v = np.zeros((image_1.shape[0], image_1.shape[1]))
+    epsilon = 1e-6
+    itr = 0
+    max_itrs = 50
+    INFO_LOSS = 1
     converged = False
 
     while not converged:
-        for rows in range(0,optical_flow.shape[0]):
-            for col in range(0,optical_flow.shape[1]):
+        old_u = u
+        old_v = v
 
-                ubar = 0.25 * ()
+        for row in range(INFO_LOSS,u.shape[0] - INFO_LOSS):
+            for col in range(INFO_LOSS,u.shape[1] - INFO_LOSS):
+                u_bar = get_brightness_constancy_term(row, col, u)
+                v_bar = get_brightness_constancy_term(row, col, v)
 
+                pt_ddx = im_1_deriv_x[row][col]
+                pt_ddy = im_1_deriv_y[row][col]
+                pt_ddt = im_deriv_time[row][col]
+
+                smoothness = get_smoothness_term(u_bar, v_bar, pt_ddx,
+                                                 pt_ddy, pt_ddt, lamb)
+
+                u[row][col] = u_bar - (smoothness * pt_ddx)
+                v[row][col] = v_bar - (smoothness * pt_ddy)
+
+        diff_u = np.abs(old_u - u)
+        diff_v = np.abs(old_v - v)
+
+        if (np.max(diff_u) and np.max(diff_v) < epsilon) \
+                or (itr >= max_itrs):
+            converged = True
+
+        itr += 1
+
+    optical_flow = np.zeros((image_1.shape[0], image_1.shape[1], 2))
     return optical_flow
 
-'''
-Pipeline steps:
-    Smooth image
-    Sobel derivatives of x and y
-    Laplacian of the image (2nd deriv)
-    Gradient Magnitude on 1st derivs
-    Define an aperture window
-    
-'''
+
+def get_brightness_constancy_term(row, col, flow_field):
+    average = 0.25 * (flow_field[row+1, col] + flow_field[row-1, col]
+                      + flow_field[row, col+1] + flow_field[row, col-1])
+    return average
+
+def get_smoothness_term(ubar, vbar, im_ddx, im_ddy, im_ddt, lamb):
+    numerator = im_ddx * ubar + im_ddy * vbar + im_ddt
+    denom = (lamb*lamb) + (im_ddx * im_ddx) + (im_ddy * im_ddy)
+    quotient = numerator / denom
+
+    return quotient

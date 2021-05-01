@@ -5,6 +5,7 @@
 #   May 2021
 
 import Lucas_Kanade as LK
+import Horne_Schunk as HS
 import image_functions
 import draw
 
@@ -20,11 +21,11 @@ def ec_proj_main():
     im_sphere_0_dy = image_functions.get_derivative_y(im_sphere_0)
     im_sphere_0_dt = im_sphere_0 - im_sphere_1
 
-    op_flow = LK.flow(im_traffic_1, im_traffic_0, 15, True)
-    out_im = draw.draw_flow_intensity(op_flow)
+    op_flow = LK.flow(im_traffic_0, im_traffic_1, 15, True)
+    hsv = draw.draw_flow_hsv(op_flow)
+    image_functions.display_image(hsv)
 
-    image_functions.display_image(out_im)
-
+    op_flow = HS.flow(im_traffic_0, im_traffic_1, 1.0)
     hsv = draw.draw_flow_hsv(op_flow)
     image_functions.display_image(hsv)
 
