@@ -5,9 +5,6 @@ from matplotlib import cm
 import matplotlib.pyplot as plot
 import cv2 as cv
 
-def draw_color_wheel():
-    image_functions.get
-
 
 def draw_flow_intensity(op_flow: np.ndarray):
     out_im = np.zeros((op_flow.shape[0], op_flow.shape[1]))

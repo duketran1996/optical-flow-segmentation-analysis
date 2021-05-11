@@ -17,8 +17,8 @@ def main():
     frame_1 = image_functions.open_image('./sources/images/marple13_20.jpg')
     frame_2 = image_functions.open_image('./sources/images/marple13_21.jpg')
 
-
-
+    test = image_functions.threshold_eigenvalues(frame_1, 0.75, 5)
+    image_functions.display_image(test)
 
 
     return 0

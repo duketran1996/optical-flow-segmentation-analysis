@@ -1,6 +1,4 @@
-import numpy
 import numpy as np
-
 
 class Track:
     history = []
@@ -104,6 +102,7 @@ def find_greatest_distance(A: Track, B: Track):
             max_diff_frame = frame
 
     return max_diff_frame
+
 
 def occlusion_detection(fwd_opflow: tuple, back_opflow: tuple) -> bool:
     occlusion = False

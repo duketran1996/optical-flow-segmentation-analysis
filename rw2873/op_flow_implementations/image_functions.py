@@ -91,6 +91,28 @@ def threshold_image(image: np.ndarray, thresh: int,
     return out_image
 
 
+def threshold_eigenvalues(image: np.ndarray, thresh: float, window_size: int=3):
+    im_ddx = get_derivative_x(image)
+    im_ddy = get_derivative_y(image)
+
+    im_eig = np.zeros(image.shape, dtype=np.float32)
+
+    pad = int(np.floor(window_size/2))
+
+    for row in range(pad, image.shape[0]-pad):
+        for col in range(pad, image.shape[1]-pad):
+            v_matrix = get_second_moment_matrix(row, col, im_ddx, im_ddy, window_size)
+            v_eigens = get_eigenvalues(v_matrix)
+            v_eigens = sorted(v_eigens)
+
+            if v_eigens[1] < thresh:
+                im_eig[row][col] = 0
+            else:
+                im_eig[row][col] = image[row][col]
+
+    return im_eig
+
+
 def get_neighborhood(row_index: int, col_index: int, ksize: int = 3):
     radius = np.floor(ksize / 2).astype(int)
     col_low = col_index - radius
@@ -115,6 +137,7 @@ def display_image(image: np.ndarray):
     plot.imshow(image, cmap='gray')
     plot.show()
 
+
 def get_flow_magnitude_array(op_flow: np.ndarray) -> np.ndarray:
     mag = np.zeros((op_flow.shape[0], op_flow.shape[1]))
     for row in range(0, op_flow.shape[0]):
@@ -125,6 +148,14 @@ def get_flow_magnitude_array(op_flow: np.ndarray) -> np.ndarray:
             mag[row][col] = np.sqrt((u*u) + (v*v))
 
     return mag
+
+
+def get_gaussian_filter(size=5, sigma=1.0):
+    kernel_1d = cv.getGaussianKernel(size, sigma, cv.CV_32F)
+    kernel_1d = np.array(kernel_1d)
+    kernel_2d = np.dot(kernel_1d, np.transpose(kernel_1d))
+    return kernel_2d
+
 
 def get_flow_angle_array(op_flow: np.ndarray) -> np.ndarray:
     angles = np.zeros((op_flow.shape[0], op_flow.shape[1]))
@@ -137,3 +168,38 @@ def get_flow_angle_array(op_flow: np.ndarray) -> np.ndarray:
             angles[row][col] = np.arctan2(v, u) * (180 / np.pi)
 
     return angles
+
+
+def get_second_moment_matrix(coord_row, coord_col, image_ddx: np.ndarray,
+                             image_ddy: np.ndarray, window_size: int):
+    # Define an gaussian kernel the size of the window and construct window
+    window_weight = get_gaussian_filter(window_size)
+    neighborhood = get_neighborhood(coord_row, coord_col, window_size)
+    neighborhood = np.reshape(neighborhood, (window_size, window_size, 2))
+
+    second_moment_matrix = np.zeros((2, 2), dtype=np.float32)
+
+    for row in range(0, window_size):
+        for col in range(0, window_size):
+            p_row = neighborhood[row][col][0]
+            p_col = neighborhood[row][col][1]
+            ddx = image_ddx[p_row][p_col]
+            ddy = image_ddy[p_row][p_col]
+
+            ddx = ddx * ddx
+            ddxy = ddx * ddy
+            ddy = ddy * ddy
+
+            weight = window_weight[row][col]
+
+            second_moment_matrix[0][0] += weight * ddx
+            second_moment_matrix[0][1] += weight * ddxy
+            second_moment_matrix[1][0] += weight * ddxy
+            second_moment_matrix[1][1] += weight * ddy
+
+    return second_moment_matrix
+
+
+def get_eigenvalues(matrix: np.ndarray):
+    eigs = np.linalg.eig(matrix)
+    return eigs[0]
