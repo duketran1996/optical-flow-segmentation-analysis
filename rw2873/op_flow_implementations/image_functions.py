@@ -203,3 +203,29 @@ def get_second_moment_matrix(coord_row, coord_col, image_ddx: np.ndarray,
 def get_eigenvalues(matrix: np.ndarray):
     eigs = np.linalg.eig(matrix)
     return eigs[0]
+
+
+def bilinear_interpolation(off_grid_point_row, off_grid_point_col, array: np.ndarray):
+    row_weight = off_grid_point_row - np.floor(off_grid_point_row)
+    col_weight = off_grid_point_col - np.floor(off_grid_point_col)
+
+    u_left = array[np.floor(off_grid_point_row).astype(int)][np.floor(off_grid_point_col).astype(int)]
+    u_right = array[np.floor(off_grid_point_row).astype(int)][np.ceil(off_grid_point_col).astype(int)]
+    l_left = array[np.ceil(off_grid_point_row).astype(int)][np.floor(off_grid_point_col).astype(int)]
+    l_right = array[np.ceil(off_grid_point_row).astype(int)][np.ceil(off_grid_point_col).astype(int)]
+
+    interpolated_value = u_left * (1-row_weight) * (1-col_weight) + \
+                         u_right * col_weight * (1-row_weight) + \
+                         l_left * (1-col_weight) * row_weight + \
+                         l_right * col_weight * row_weight
+
+    return interpolated_value
+
+def out_of_bounds(point: tuple, image_shape: tuple) -> bool:
+    status = False
+
+    if point[0] < 0 or point[0] >= image_shape[0] \
+        or point[1] < 0 or point[1] >= image_shape[1]:
+        status = True
+
+    return status

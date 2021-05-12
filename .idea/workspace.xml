@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="07e67ab0-7669-466a-846e-cf828b95aef6" name="Default Changelist" comment="Threshold of Marple 13 (whole sequence).  Find in results folder.">
+    <list default="true" id="07e67ab0-7669-466a-846e-cf828b95aef6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/image_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/image_functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,9 +86,6 @@
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="C:\Users\russe\anaconda3\envs\Computer_Vision\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/rw2873/op_flow_implementations" />
       <option name="IS_MODULE_SDK" value="false" />
@@ -127,7 +125,7 @@
       <workItem from="1620566045340" duration="6448000" />
       <workItem from="1620666671299" duration="8978000" />
       <workItem from="1620738488994" duration="17396000" />
-      <workItem from="1620838520950" duration="5766000" />
+      <workItem from="1620838520950" duration="12728000" />
     </task>
     <task id="LOCAL-00001" summary="Basic Drawing Function">
       <created>1619398862480</created>
@@ -213,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620755736710</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Threshold of Marple 13 (whole sequence).  Find in results folder.">
+      <created>1620845934558</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1620845934558</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

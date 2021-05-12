@@ -14,12 +14,21 @@ import cv2 as cv
 import track
 import os
 
+
+# def main():
+
+
+
+
+# '''
 def main():
-    tracks = []
+    trajectories = []
     frames = []
 
-    flow_fore = np.zeros(frames[0].shape, dtype=np.float32)
-    flow_back = np.zeros(frames[0].shape, dtype=np.float32)
+    frame_dimensions = frames[0].shape
+
+    flow_fore = np.zeros(frame_dimensions, dtype=np.float32)
+    flow_back = np.zeros(frame_dimensions, dtype=np.float32)
 
     for frame in range(0,len(frames)):
         # Calculate the forward and backwards flow between the current and next frame
@@ -28,28 +37,57 @@ def main():
         flow_back = cv.calcOpticalFlowFarneback(frames[frame + 1], frames[frame], flow_back,
                                                 0.5, 5, 5, 5, 5, 1.1, cv.OPTFLOW_FARNEBACK_GAUSSIAN)
 
+        flow_back_u, flow_back_v = cv.split(flow_back)
+
         # Check if new objects are in scene in the FORWARD FLOW
-        for row in flow_fore:
-            for col in flow_fore:
+        # At the authors' suggestion, down sample this step by a factor of [4,16]
+        # in order to keep trajectory numbers at a minimum.
+        for row in range(0, frame_dimensions, 4):
+            for col in range(0, frame_dimensions, 4):
+
                 # check each pixel for flow response
+                if flow_fore[row][col][0] > 0 or flow_fore[row][col][1] > 0:
+                    tracked = False
 
-                # if there is a response > than a certain threshold
-                for track in tracks: # check track.curr_pos
-                # if no track is currently tracking the point, create a new one
+                    # check each trajectory to see if it is currently tracking that point
+                    for trajectory in trajectories:
+                        if trajectory.curr_position == (row, col):
+                            tracked = True
+                            break
 
-        for curr_track in tracks:
-            fwd_flow = flow_fore[curr_track.curr_position[0]][curr_track.curr_position[1]]
+                    # Create new trajectory if not currently tracked
+                    if not tracked:
+                        trajectories.append(track.Track(row, col, frame))
+
+        # For all trajectories, we track them from frame (t) to (t+1).
+        for curr_traj in trajectories:
+            curr_pos = curr_traj.get_curr_position()
+
+            # sample the forward flow vector at the point's current location
+            fwd_flow = flow_fore[curr_pos[0]][curr_pos[1]]
 
             # New position is (x + u, y + v)
-            new_pos = (curr_track.curr_position[0] + fwd_flow[0], curr_track.curr_position[1] + fwd_flow[1])
+            new_pos = (curr_pos[0] + fwd_flow[0], curr_pos[1] + fwd_flow[1])
 
+            # If the point goes out of frame, kill the trajectory
+            if image_functions.out_of_bounds(new_pos, frame_dimensions):
+                curr_traj.live = False
+                continue
 
-            bck_flow_u = # BILINEAR INTERPOLATION ON NEW_POS ON U
-            bck_flow_v = # BILINEAR INTERPOLATION ON NEW_POST ON V
+            # The new point is likely 'off the grid' so we sample the backwards flow by
+            # bilinear interpolation, as the u and v vectors are orthogonal, they can be
+            # processed independently
+            bck_flow_u = image_functions.bilinear_interpolation(new_pos[0], new_pos[1], flow_back_u)
+            bck_flow_v = image_functions.bilinear_interpolation(new_pos[0], new_pos[1], flow_back_v)
 
-            # Check to make sure they match (using the W equation)
-
-            # Update & append position if they do, kill if not
+            # We check if the backwards and forwards flow vectors are inverses
+            occluded = track.occlusion_detection(fwd_flow, (bck_flow_u, bck_flow_v))
+            if occluded:
+                # Kill if occluded (or if something went wrong)
+                curr_traj.live = False
+            else:
+                # If not occluded, update the point
+                curr_traj.set_position(new_pos[0], new_pos[1], frame)
 
     # STEP 3) Construct affinity matrix
 
@@ -63,7 +101,7 @@ def main():
 
 
     return 0
-
+# '''
 
 if __name__ == '__main__':
     main()
