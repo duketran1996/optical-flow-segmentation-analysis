@@ -57,7 +57,7 @@ def main():
             for col in range(0, frame_dimensions[1], 4):
 
                 # check each pixel for flow response
-                if flow_fore[row][col][0] > 0 or flow_fore[row][col][1] > 0:
+                if abs(flow_fore[row][col][0]) > 1e-20 or abs(flow_fore[row][col][1]) > 1e-20:
                     tracked = False
 
                     # check each trajectory to see if it is currently tracking that point
@@ -78,7 +78,7 @@ def main():
             fwd_flow = flow_fore[curr_pos[0]][curr_pos[1]]
 
             # New position is (x + u, y + v)
-            new_pos = (curr_pos[0] + fwd_flow[0], curr_pos[1] + fwd_flow[1])
+            new_pos = (curr_pos[0] + fwd_flow[1], curr_pos[1] + fwd_flow[0])
 
             # If the point goes out of frame, kill the trajectory
             if image_functions.out_of_bounds(new_pos, frame_dimensions):

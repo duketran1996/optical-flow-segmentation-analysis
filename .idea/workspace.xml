@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="07e67ab0-7669-466a-846e-cf828b95aef6" name="Default Changelist" comment="" />
+    <list default="true" id="07e67ab0-7669-466a-846e-cf828b95aef6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -121,7 +124,7 @@
       <workItem from="1620566045340" duration="6448000" />
       <workItem from="1620666671299" duration="8978000" />
       <workItem from="1620738488994" duration="17396000" />
-      <workItem from="1620838520950" duration="15256000" />
+      <workItem from="1620838520950" duration="16834000" />
     </task>
     <task id="LOCAL-00001" summary="Basic Drawing Function">
       <created>1619398862480</created>
@@ -228,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620855183625</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Issue with shared history tracking resolved. (flippin python)">
+      <created>1620856098443</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1620856098443</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,16 +280,12 @@
     <MESSAGE value="Threshold of Marple 13 (whole sequence).  Find in results folder." />
     <MESSAGE value="First draft of Tracking pipeline (in main)" />
     <MESSAGE value="Initialization accomplished.  Issues with history tracking." />
-    <option name="LAST_COMMIT_MESSAGE" value="Initialization accomplished.  Issues with history tracking." />
+    <MESSAGE value="Issue with shared history tracking resolved. (flippin python)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Issue with shared history tracking resolved. (flippin python)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/rw2873/op_flow_implementations/main.py</url>
-          <line>73</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/rw2873/op_flow_implementations/main.py</url>
           <line>35</line>
@@ -296,6 +302,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/optical_flow_segmentation_analysis$main.coverage" NAME="main Coverage Results" MODIFIED="1620855759626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/rw2873/op_flow_implementations" />
+    <SUITE FILE_PATH="coverage/optical_flow_segmentation_analysis$main.coverage" NAME="main Coverage Results" MODIFIED="1620857382844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/rw2873/op_flow_implementations" />
   </component>
 </project>
