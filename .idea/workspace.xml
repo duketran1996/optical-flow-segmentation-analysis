@@ -1,88 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="07e67ab0-7669-466a-846e-cf828b95aef6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_01.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_02.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_03.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_04.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_05.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_06.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_07.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_08.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_09.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_10.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_11.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_12.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_13.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_14.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_15.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_16.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_17.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_18.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_19.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_20.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_21.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_22.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_23.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_24.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_25.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_26.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_27.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_28.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_29.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_30.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_31.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_32.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_33.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_34.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_35.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_36.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_37.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_38.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_39.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_40.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_41.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_42.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_43.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_44.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_45.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_46.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_47.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_48.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_49.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_50.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_51.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_52.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_53.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_54.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_55.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_56.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_57.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_58.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_59.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_60.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_61.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_62.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_63.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_64.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_65.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_66.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_67.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_68.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_69.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_70.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_71.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_72.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_73.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_74.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/eig_marple13_75.jpg" afterDir="false" />
+    <list default="true" id="07e67ab0-7669-466a-846e-cf828b95aef6" name="Default Changelist" comment="Threshold of Marple 13 (whole sequence).  Find in results folder.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/rw2873/op_flow_implementations/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/test_im2_bi_005_200_050.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/test_im2_bi_009_050_050.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/test_im2_bi_009_200_050.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rw2873/op_flow_implementations/results/test_im2_gauss_blur.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,6 +85,9 @@
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="C:\Users\russe\anaconda3\envs\Computer_Vision\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/rw2873/op_flow_implementations" />
       <option name="IS_MODULE_SDK" value="false" />
@@ -202,7 +126,8 @@
       <workItem from="1620081654048" duration="1000" />
       <workItem from="1620566045340" duration="6448000" />
       <workItem from="1620666671299" duration="8978000" />
-      <workItem from="1620738488994" duration="11046000" />
+      <workItem from="1620738488994" duration="17396000" />
+      <workItem from="1620838520950" duration="5766000" />
     </task>
     <task id="LOCAL-00001" summary="Basic Drawing Function">
       <created>1619398862480</created>
@@ -274,7 +199,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620747404928</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Threshold of Marple 13 (whole sequence).  Find in results folder.">
+      <created>1620755674502</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1620755674502</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Threshold of Marple 13 (whole sequence).  Find in results folder.">
+      <created>1620755736710</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1620755736710</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -313,7 +252,8 @@
     <MESSAGE value="Implemented HSV drawing and updated LK with blob draw functionality." />
     <MESSAGE value="Began work on track.py and Freiburg-Berkley approach." />
     <MESSAGE value="Added eigen-thresholding." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added eigen-thresholding." />
+    <MESSAGE value="Threshold of Marple 13 (whole sequence).  Find in results folder." />
+    <option name="LAST_COMMIT_MESSAGE" value="Threshold of Marple 13 (whole sequence).  Find in results folder." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
