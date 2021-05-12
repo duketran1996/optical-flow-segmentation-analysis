@@ -1,14 +1,10 @@
 import numpy as np
 
-class Track:
-    history = []
-    trajectory_ddt = []
-    curr_position = tuple
-    live = bool
-    label = int
 
+class Track:
     def __init__(self, start_row, start_col, start_frame):
         self.origin = (start_row, start_col, start_frame)
+        self.history = []
         self.history.append(self.origin)
         self.curr_position = self.history[0]
         self.live = True
