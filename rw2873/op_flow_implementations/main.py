@@ -22,15 +22,26 @@ import os
 
 # '''
 def main():
+    frame_0 = image_functions.open_image('results/Marple13_eig/eig_marple13_20.jpg')
+    frame_1 = image_functions.open_image('results/Marple13_eig/eig_marple13_21.jpg')
+
     trajectories = []
-    frames = []
+    frames = [frame_0, frame_1]
 
     frame_dimensions = frames[0].shape
 
     flow_fore = np.zeros(frame_dimensions, dtype=np.float32)
     flow_back = np.zeros(frame_dimensions, dtype=np.float32)
 
-    for frame in range(0,len(frames)):
+    for frame in range(0, len(frames)):
+
+        # If the frame is the final frame in the sequence, optical flow cannot
+        # be calculated (as there is no frame (t+1)).  In this case, we go throgh
+        # all trajectories and set them as 'dead.'  Then we skip out of the loop.
+        if frame == len(frames) - 1:
+            for trajectory in trajectories:
+                trajectory.live = False
+            continue
         # Calculate the forward and backwards flow between the current and next frame
         flow_fore = cv.calcOpticalFlowFarneback(frames[frame], frames[frame + 1], flow_fore,
                                                 0.5, 5, 5, 5, 5, 1.1, cv.OPTFLOW_FARNEBACK_GAUSSIAN)
@@ -42,8 +53,8 @@ def main():
         # Check if new objects are in scene in the FORWARD FLOW
         # At the authors' suggestion, down sample this step by a factor of [4,16]
         # in order to keep trajectory numbers at a minimum.
-        for row in range(0, frame_dimensions, 4):
-            for col in range(0, frame_dimensions, 4):
+        for row in range(0, frame_dimensions[0], 4):
+            for col in range(0, frame_dimensions[1], 4):
 
                 # check each pixel for flow response
                 if flow_fore[row][col][0] > 0 or flow_fore[row][col][1] > 0:
@@ -86,6 +97,7 @@ def main():
                 # Kill if occluded (or if something went wrong)
                 curr_traj.live = False
             else:
+                print("Trajectory at position ", curr_traj.curr_position, "moved to (", new_pos, ')\n')
                 # If not occluded, update the point
                 curr_traj.set_position(new_pos[0], new_pos[1], frame)
 

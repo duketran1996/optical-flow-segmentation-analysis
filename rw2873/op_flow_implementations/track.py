@@ -10,6 +10,7 @@ class Track:
     def __init__(self, start_row, start_col, start_frame):
         self.origin = (start_row, start_col, start_frame)
         self.history.append(self.origin)
+        self.curr_position = self.history[0]
         self.live = True
         self.label = -1
 
@@ -28,7 +29,7 @@ class Track:
     def set_position(self, row, col, frame):
         new_location = (row, col, frame)
         self.history.append(new_location)
-        self.curr_position(new_location)
+        self.curr_position = new_location
 
     def set_live(self, status: bool):
         self.live = status
