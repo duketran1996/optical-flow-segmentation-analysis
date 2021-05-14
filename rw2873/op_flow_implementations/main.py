@@ -23,7 +23,9 @@ import os
 # '''
 def main():
     frame_0 = image_functions.open_image('results/Marple13_eig/eig_marple13_20.jpg')
+    frame_0 = image_functions.output_intensity_mapping(frame_0)
     frame_1 = image_functions.open_image('results/Marple13_eig/eig_marple13_21.jpg')
+    frame_1 = image_functions.output_intensity_mapping(frame_1)
 
     trajectories = []
     frames = [frame_0, frame_1]
@@ -50,6 +52,8 @@ def main():
 
         flow_back_u, flow_back_v = cv.split(flow_back)
 
+        draw.draw_flow_arrows(frame_0, flow_fore, 20, 100)
+        draw.draw_flow_arrows(frame_1, flow_back, 20, 100)
         # Check if new objects are in scene in the FORWARD FLOW
         # At the authors' suggestion, down sample this step by a factor of [4,16]
         # in order to keep trajectory numbers at a minimum.
@@ -91,16 +95,21 @@ def main():
             bck_flow_u = image_functions.bilinear_interpolation(new_pos[0], new_pos[1], flow_back_u)
             bck_flow_v = image_functions.bilinear_interpolation(new_pos[0], new_pos[1], flow_back_v)
 
+            if bck_flow_u == np.nan or bck_flow_v == np.nan:
+                continue
+
             # We check if the backwards and forwards flow vectors are inverses
             occluded = track.occlusion_detection(fwd_flow, (bck_flow_u, bck_flow_v))
             if occluded:
                 # Kill if occluded (or if something went wrong)
                 curr_traj.live = False
             else:
-                print("Trajectory at position ", curr_traj.curr_position, "moved to (", new_pos, ')\n')
+                if curr_traj.curr_position[0] - new_pos[0] > 1 or curr_traj.curr_position[1] - new_pos[1] > 1:
+                    print("Trajectory at position ", curr_traj.curr_position, "moved to (", new_pos, ')\n')
                 # If not occluded, update the point
                 curr_traj.set_position(new_pos[0], new_pos[1], frame)
 
+    draw.draw_trajectory(frame_0, trajectories, 0, 1, 5)
     # STEP 3) Construct affinity matrix
 
     # STEP 4) Populate affinity values

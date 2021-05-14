@@ -209,6 +209,10 @@ def bilinear_interpolation(off_grid_point_row, off_grid_point_col, array: np.nda
     row_weight = off_grid_point_row - np.floor(off_grid_point_row)
     col_weight = off_grid_point_col - np.floor(off_grid_point_col)
 
+    if off_grid_point_row < 0 or off_grid_point_row + 1 >= array.shape[0] \
+        or off_grid_point_col < 0 or off_grid_point_col + 1 >= array.shape[1]:
+        return np.nan
+
     u_left = array[np.floor(off_grid_point_row).astype(int)][np.floor(off_grid_point_col).astype(int)]
     u_right = array[np.floor(off_grid_point_row).astype(int)][np.ceil(off_grid_point_col).astype(int)]
     l_left = array[np.ceil(off_grid_point_row).astype(int)][np.floor(off_grid_point_col).astype(int)]
