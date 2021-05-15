@@ -5,6 +5,7 @@ import helper
 import threshold
 import tracking
 import affinity
+from sklearn.cluster import SpectralClustering
 
 def main():
 
@@ -18,18 +19,49 @@ def main():
 
     frame_0 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_20.jpg')
     frame_1 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_21.jpg')
+    frame_2 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_22.jpg')
+    frame_3 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_23.jpg')
+    frame_4 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_24.jpg')
 
     # helper.display_im(frame_0)
 
-    frames = [frame_0, frame_1]
+    frames = [frame_0, frame_1,frame_2,frame_3,frame_4]
 
     trajectories = tracking.create_trajectories(frames)
     
     print(len(trajectories))
 
     A = affinity.calculate_A(trajectories, gamma = 0.1)
-    print(A[:100,:100])
+    print(A[190:196,190:196])
+    np.savetxt("A_out.csv", A, delimiter=",")
 
+    clustering = SpectralClustering(n_clusters=3, assign_labels='discretize', random_state=0,affinity='precomputed').fit_predict(A)
+    print(clustering)
+
+    
+    fig = plt.figure(figsize=(7, 7))
+    plt.imshow(frame_0, cmap='gray')
+
+
+
+    for i in range(len(clustering)):
+        trajectories[i].label = clustering[i]
+
+    for i in range(len(trajectories)):
+        point = trajectories[i].history[0]
+        label = trajectories[i].label
+        col=point[1]
+        row=point[0]
+        if label == 0:
+            plt.scatter(col,row,c='b')
+        if label == 1:
+            plt.scatter(col,row,c='y')
+        if label == 2:
+            plt.scatter(col,row,c='r')
+        if label == 3:
+            plt.scatter(col,row,c='g')
+    
+    plt.show()
 
 
 if __name__ == "__main__":

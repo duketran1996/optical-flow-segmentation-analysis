@@ -53,8 +53,10 @@ def create_trajectories(frames):
         # Check if new objects are in scene in the FORWARD FLOW
         # At the authors' suggestion, down sample this step by a factor of [4,16]
         # in order to keep trajectory numbers at a minimum.
-        for row in range(0, frame_dimensions[0], 4):
-            for col in range(0, frame_dimensions[1], 4):
+        for row in range(0, frame_dimensions[0],16):
+            for col in range(0, frame_dimensions[1],16):
+
+                
 
                 # check each pixel for flow response
                 if abs(flow_fore[row][col][0]) > 1e-20 or abs(flow_fore[row][col][1]) > 1e-20:
@@ -63,6 +65,8 @@ def create_trajectories(frames):
                     # check each trajectory to see if it is currently tracking that point
                     for trajectory in trajectories:
                         if trajectory.curr_position == (row, col):
+
+
                             tracked = True
                             print("TODO")
                             break
@@ -118,3 +122,35 @@ def create_trajectories(frames):
 # STEP 4) Populate affinity values
 
 # Step 5) Spectral Clustering
+
+def get_flow_response(coord: tuple, window: int, forward_flow: np.ndarray):
+	neighborhood = helper.get_neighborhood(coord[0], coord[1], window)
+	flow_sum = 0.0
+	flow_response = False
+
+	for neigh in range(0, len(neighborhood)):
+		
+
+		if forward_flow[neighborhood[neigh][0]][neighborhood[neigh][1]] > 1e-20:
+			flow_sum += forward_flow[neighborhood[neigh][0]][neighborhood[neigh][1]]
+		
+	if flow_sum >= window*window:
+		flow_response = True
+	
+
+	return flow_response
+
+def get_tracker_proximity(coord: tuple, window: int, trajectories: np.ndarray):
+	neighborhood = helper.get_neighhborhood(coord[0], coord[1], window)
+	nearby_tracker = False
+	
+	for n in range(0, len(neighborhood)):
+		for t in range(0, len(trajectories)):
+			t_pos = trajectories[t].curr_position
+			n_pos = neighborhood[n]
+
+			if n_pos[0] == t_pos[0] and n_pos[1] == t_pos[1]:
+				nearby_tracker = True
+				break
+	
+	return nearby_tracker

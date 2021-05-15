@@ -140,8 +140,11 @@ def calculate_A(trajectories,gamma):
     A = np.zeros((len(trajectories),len(trajectories)))
 
     # FIX TO ALLOW FULL MATRIX
-    for i in range(A.shape[0]):
-        for j in range(A.shape[1]):
+    for i in range(190,197):
+        for j in range(190,197):
+
+            if i < j: 
+                continue
 
             # for every trajectory pair...
             traj_a = trajectories[i]
@@ -185,6 +188,7 @@ def calculate_A(trajectories,gamma):
             D_sq[i,j] = D_spat[i,j] * D_ddt[i,j]
 
             A[i,j] = np.exp( (-1 * gamma) * D_sq[i,j] )
+            A[j,i] = A[i,j]
 
     return A
         
