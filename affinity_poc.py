@@ -20,11 +20,14 @@ frame_0 = image_functions.open_image('data/Marple13_eig/eig_marple13_20.jpg')
 frame_0 = image_functions.output_intensity_mapping(frame_0)
 frame_1 = image_functions.open_image('data/Marple13_eig/eig_marple13_21.jpg')
 frame_1 = image_functions.output_intensity_mapping(frame_1)
-frame_2 = image_functions.open_image('data/Marple13_eig/eig_marple13_22.jpg')
-frame_2 = image_functions.output_intensity_mapping(frame_2)
+# frame_2 = image_functions.open_image('data/Marple13_eig/eig_marple13_22.jpg')
+# frame_2 = image_functions.output_intensity_mapping(frame_2)
+# frame_3 = image_functions.open_image('data/Marple13_eig/eig_marple13_23.jpg')
+# frame_3 = image_functions.output_intensity_mapping(frame_3)
+
 
 trajectories = []
-frames = [frame_0, frame_1,frame_2]
+frames = [frame_0, frame_1]
 
 frame_dimensions = frames[0].shape
 
@@ -66,6 +69,7 @@ for frame in range(0, len(frames)):
                 for trajectory in trajectories:
                     if trajectory.curr_position == (row, col):
                         tracked = True
+                        print("DUPLICATE")
                         break
 
                 # Create new trajectory if not currently tracked
@@ -77,7 +81,7 @@ for frame in range(0, len(frames)):
         curr_pos = curr_traj.get_curr_position()
 
         # sample the forward flow vector at the point's current location
-        fwd_flow = flow_fore[int(curr_pos[0])][int(curr_pos[1])]
+        fwd_flow = flow_fore[curr_pos[0]][curr_pos[1]]
 
         # New position is (x + u, y + v)
         new_pos = (curr_pos[0] + fwd_flow[1], curr_pos[1] + fwd_flow[0])
@@ -108,7 +112,7 @@ for frame in range(0, len(frames)):
             # if new_pos[0] == 4.0 and new_pos[0] == 4.0:
             #     print("Trajectory at position ", curr_traj.curr_position, "moved to (", new_pos, ')')
             #     print("FRAME:",frame)
-            curr_traj.set_position(new_pos[0], new_pos[1], frame)
+            curr_traj.set_position(int(np.round(new_pos[0])), int(np.round(new_pos[1])), frame+1)
 
 draw.draw_trajectory(frame_0, trajectories, 0, 1, 5)
 print('Done')
@@ -120,14 +124,53 @@ print('Done')
 
 print(len(trajectories))
 
-A = np.ones((len(trajectories),len(trajectories)))
+# D squared - spatial distance times distance of ddt
+D_sq = np.zeros((len(trajectories),len(trajectories)))
 
-for i in range(190,197):
-    for j in range(180,187):
+# D ddt - distance of ddt
+D_ddt = np.zeros((len(trajectories),len(trajectories)))
+
+# D spatial - spatial distance between points
+D_spat = np.zeros((len(trajectories),len(trajectories)))
+
+# A - affinity
+A = np.zeros((len(trajectories),len(trajectories)))
+
+
+for i in range(A.shape[0]):
+    for j in range(A.shape[1]):
         traj_a = trajectories[i]
         traj_a.smooth_trajectory(2)
         traj_b = trajectories[j]
         traj_b.smooth_trajectory(2)
+
+        # calculate the maximum difference in ddt between the two points
         max_diff,max_diff_frame = track.find_greatest_distance_and_frame(traj_a,traj_b)
-        print('maximum difference in ddt between tracks',i,'and',j,'is: ',max_diff,' at frame:',max_diff_frame)
- 
+
+        if (max_diff > 0.0):
+            print('maximum difference in ddt between tracks',i,'and',j,'is: ',max_diff,' at frame:',max_diff_frame)
+
+        D_ddt[i,j] = max_diff
+
+
+        for a_history_tuple in traj_a.history:
+            # print(a_history_tuple)
+            if a_history_tuple[-1] == max_diff_frame:
+                a_point = a_history_tuple
+
+        for b_history_tuple in traj_b.history:
+            # print(b_history_tuple)
+            if b_history_tuple[-1] == max_diff_frame:
+                b_point = b_history_tuple
+
+        a_coord = np.array([a_point[0],a_point[1]])
+        b_coord = np.array([b_point[0],b_point[1]])
+
+        euclid_dist = np.sqrt((a_coord - b_coord).dot((a_coord - b_coord).T))
+        
+        D_spat[i,j] = euclid_dist
+
+        D_sq[i,j] = D_spat[i,j] * D_ddt[i,j]
+    
+
+print(D_sq[190:197,190:197])
