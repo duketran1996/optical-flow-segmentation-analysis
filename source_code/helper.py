@@ -37,3 +37,13 @@ def get_gaussian_filter(size=5, sigma=1.0):
     kernel_1d = np.array(kernel_1d)
     kernel_2d = np.dot(kernel_1d, np.transpose(kernel_1d))
     return kernel_2d
+
+
+
+def calculate_forward_flow(frames):
+    output_flow = np.ones_like(frames[0])
+    for i in range(0, len(frames)-1):
+        output_flow = cv.calcOpticalFlowFarneback(frames[i], frames[i+1], None, 0.5, 3, 15, 3, 5, 1.2, 0)
+
+    return output_flow
+
