@@ -108,8 +108,14 @@ def find_greatest_distance_and_frame(A: Track, B: Track):
     max_diff = 0
     max_diff_frame = overlap[0]
     for frame in range(overlap[0], overlap[1]+1):
-        a_ddt = A.trajectory_ddt[frame]
-        b_ddt = B.trajectory_ddt[frame]
+
+        for a_traj_ddt_tuple in A.trajectory_ddt:
+            if a_traj_ddt_tuple[-1] == frame:
+                a_ddt = a_traj_ddt_tuple
+
+        for b_traj_ddt_tuple in B.trajectory_ddt:
+            if b_traj_ddt_tuple[-1] == frame:
+                b_ddt = b_traj_ddt_tuple
 
         diff_row = a_ddt[0] - b_ddt[0]
         diff_col = a_ddt[1] - b_ddt[1]
@@ -118,6 +124,8 @@ def find_greatest_distance_and_frame(A: Track, B: Track):
         if diff > max_diff:
             max_diff = diff
             max_diff_frame = frame
+
+            print("overlapping and MAXDIFF at frame:",frame)
 
     return max_diff,max_diff_frame,
 
