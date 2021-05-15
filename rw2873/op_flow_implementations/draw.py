@@ -6,6 +6,7 @@ import matplotlib.pyplot as plot
 import cv2 as cv
 
 
+
 def draw_flow_intensity(op_flow: np.ndarray):
     out_im = np.zeros((op_flow.shape[0], op_flow.shape[1]))
 
@@ -101,3 +102,18 @@ def draw_trajectory(image: np.ndarray, trajectories, start_frame: int=0,
     '''
 
     plot.show()
+
+
+def draw_segmented_trajectories(file_path: str, trajectories):
+    import os
+
+    directory = os.fsencode(file_path)
+
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        if filename.endswith('.jpg'):
+            image = cv.imread(filename, flags=cv.IMREAD_COLOR)
+            fig = plot.figure(figsize=(7, 7))
+            plot.axis('off')
+            plot.imshow(image_out, cmap='rgb')
+            plot.savefig('./results/' + save_name, bbox_inches='tight')

@@ -235,5 +235,7 @@ def out_of_bounds(point: tuple, image_shape: tuple) -> bool:
 
     return status
 
-def nearest_neighbor(point: tuple):
-    return
+def enough_response(pixel, forward_flow, window_size):
+    if at pixel all nxn pixels have flow > threshold:
+        return true
+    else false
