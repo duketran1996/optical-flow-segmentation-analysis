@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.metrics import pairwise_distances
+
 sns.set_style('darkgrid', {'axes.facecolor': '.9'})
 sns.set_palette(palette='deep')
 sns_c = sns.color_palette(palette='deep')
@@ -9,20 +11,26 @@ from scipy import linalg
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 from sklearn.neighbors import kneighbors_graph
+from sklearn.cluster import KMeans
 from scipy import sparse
 import sklearn as sk
 
 #Step 1: Compute Graph Laplacian, result is generated from subtracting ajacency matrix from degree matrix
 #Generated using nearest neighbors, can be modified to interpolation
 #nn is the neighborhood, df is the data set. Doesn't have to be a affinity matrix.
+'''df can be a affinity matrix, however gaussian affinity matrix is to be tested'''
 def generate_graph_laplacian(df, nn):
-    """Generate graph Laplacian from data."""
+    #Generate graph Laplacian from data.
     # Adjacency Matrix.
     connectivity = kneighbors_graph(X=df, n_neighbors=nn, mode='connectivity')
     adjacency_matrix_s = (1/2)*(connectivity + connectivity.T)
+    print('adjacency matrix:')
+    print(adjacency_matrix_s.todense())
     # Graph Laplacian.
     graph_laplacian_s = sparse.csgraph.laplacian(csgraph=adjacency_matrix_s, normed=False)
     graph_laplacian = graph_laplacian_s.toarray()
+    print('graph laplacian:')
+    print(graph_laplacian)
     return graph_laplacian
 
 #Another method generating lablacian
@@ -72,6 +80,7 @@ def compute_spectrum_graph_laplacian(graph_laplacian):
     eigenvals, eigenvcts = linalg.eig(graph_laplacian)
     eigenvals = np.real(eigenvals)
     eigenvcts = np.real(eigenvcts)
+    print(eigenvals)
     return eigenvals, eigenvcts
 
 def project_and_transpose(eigenvals, eigenvcts, num_ev):
@@ -88,13 +97,13 @@ def project_and_transpose(eigenvals, eigenvcts, num_ev):
 def run_k_means(df, n_clusters):
     #built in K means clustering, cluster number is obtained though try and test using below commented out
     #algorithm. Clusters equal when inertial first equals 0
-    k_means = sk.KMeans(random_state=25, n_clusters=n_clusters)
+    k_means = KMeans(random_state=25, n_clusters=n_clusters)
     k_means.fit(df)
     cluster = k_means.predict(df)
     return cluster
 
 """
-#search through find the correct cluster number
+# implementation to search through find the correct cluster number
 inertias = []
 
 k_candidates = range(1, 6)
@@ -115,4 +124,12 @@ def spectral_clustering(df, n_neighbors, n_clusters):
     eigenvals, eigenvcts = compute_spectrum_graph_laplacian(graph_laplacian)
     proj_df = project_and_transpose(eigenvals, eigenvcts, n_clusters)
     cluster = run_k_means(proj_df, proj_df.columns.size)
-    return ['c_' + str(c) for c in cluster]
+    print (len(cluster))
+    print (cluster)
+    #this will add an extra column in the end of the each coord x and y displaying its
+    #belonging cluster
+    return ['cluster' + str(c) for c in cluster]
+
+#Add an extra column to each item of a Tra
+#trajectories.history['cluster'] = ['c_' + str(c) for c in cluster]
+
