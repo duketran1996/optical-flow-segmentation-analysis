@@ -225,6 +225,7 @@ def bilinear_interpolation(off_grid_point_row, off_grid_point_col, array: np.nda
 
     return interpolated_value
 
+
 def out_of_bounds(point: tuple, image_shape: tuple) -> bool:
     status = False
 
@@ -233,3 +234,6 @@ def out_of_bounds(point: tuple, image_shape: tuple) -> bool:
         status = True
 
     return status
+
+def nearest_neighbor(point: tuple):
+    return
