@@ -153,7 +153,7 @@ def calculate_A(trajectories,gamma):
             traj_b.smooth_trajectory(2)
 
             # calculate the maximum difference in ddt between the two points
-            max_diff,max_diff_frame = track.find_greatest_distance_and_frame(traj_a,traj_b)
+            max_diff, max_diff_frame = track.find_greatest_distance_and_frame(traj_a,traj_b)
 
             # log a message whenever there's a trajectory that moves.
             if (max_diff > 0.0) and ((i%100 + j%100) == 0):

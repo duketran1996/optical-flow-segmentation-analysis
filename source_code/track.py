@@ -9,8 +9,7 @@ class Track:
         self.curr_position = self.history[0]
         self.live = True
         self.label = -1
-        self.trajectory_ddt=[]
-        
+        self.trajectory_ddt = []
 
     def get_history(self):
         return self.history
@@ -37,12 +36,10 @@ class Track:
 
     def smooth_trajectory(self, frame_difference: int):
 
+        self.trajectory_ddt = []
 
-        self.trajectory_ddt=[]
-
-        normalization = 1/frame_difference
+        normalization = 1 / frame_difference
         traj_length = len(self.history)
-
 
         # address every item in the history
         for hist_index in range(len(self.history)):
@@ -52,9 +49,8 @@ class Track:
 
             # if the remaining number of frames is smaller than the frame window, we need to shrink the frame window.
             # Note: the smallest this window can be is (0), which will return a ddt of 0 (identity). This occurs at the end of the history.
-            if (traj_length - 1 ) - hist_index < frame_difference:
+            if (traj_length - 1) - hist_index < frame_difference:
                 frame_difference = len(self.history) - hist_index - 1
-           
 
             cur_frame_col = self.history[hist_index][1]
             cur_frame_row = self.history[hist_index][0]
@@ -67,9 +63,7 @@ class Track:
             self.trajectory_ddt.append((fwd_diff_row, fwd_diff_col, curr_frame))
 
 
-
 def calculate_overlap(A: Track, B: Track):
-    
     # Grab the start end end frames for the trajectory
     a_start = A.history[0][2]
     a_end = A.history[-1][2]
@@ -77,13 +71,12 @@ def calculate_overlap(A: Track, B: Track):
     b_end = B.history[-1][2]
 
     # check if they overlap. Return overlapping frames, and if no overlap, return (-1,-1)
-    a = range(a_start,a_end+1)
-    b = range(b_start,b_end+1)
+    a = range(a_start, a_end + 1)
+    b = range(b_start, b_end + 1)
     overlap = list(set(a).intersection(b))
 
     if overlap == (-1):
-        overlap = (-1,-1)
-
+        overlap = (-1, -1)
 
     return overlap
 
@@ -92,15 +85,14 @@ def find_greatest_distance_and_frame(A: Track, B: Track):
     overlap = calculate_overlap(A, B)
 
     print(overlap)
-    
+
     # if there's no overlap, we simply return -1.
-    if overlap[0] == -1:
-        return -1
+    if not overlap or overlap[0] == -1:
+        return -1, -1
 
     # initialize variables for maximum difference in ddt, and the frame at which it occurs
     max_diff = 0
     max_diff_frame = overlap[0]
-
 
     # print(overlap)
     # print(A.history)
@@ -108,9 +100,8 @@ def find_greatest_distance_and_frame(A: Track, B: Track):
     # print(B.history)
     # print(B.trajectory_ddt)
 
-
     # for every frame in which the trajectories overlap...
-    for frame in range(overlap[0], overlap[-1]+1):
+    for frame in range(overlap[0], overlap[-1] + 1):
 
         # retrieve the corresponding trajectory tuples.
         for a_traj_ddt_tuple in A.trajectory_ddt:
@@ -126,15 +117,14 @@ def find_greatest_distance_and_frame(A: Track, B: Track):
         diff_col = a_ddt[1] - b_ddt[1]
 
         # take the euclidean distance betwen the ddts
-        diff = np.sqrt((diff_row*diff_row) + (diff_col*diff_col))
+        diff = np.sqrt((diff_row * diff_row) + (diff_col * diff_col))
 
         # if the difference in ddts is greater, record it and save the frame
         if diff > max_diff:
             max_diff = diff
             max_diff_frame = frame
 
-
-    return max_diff,max_diff_frame
+    return max_diff, max_diff_frame
 
 
 def occlusion_detection(fwd_opflow: tuple, back_opflow: tuple) -> bool:
@@ -151,5 +141,3 @@ def occlusion_detection(fwd_opflow: tuple, back_opflow: tuple) -> bool:
         occlusion = True
 
     return occlusion
-
-
