@@ -6,6 +6,9 @@ import threshold
 import tracking
 import affinity
 import spectral_clustering
+import image_functions
+import os
+
 
 def main():
 
@@ -25,7 +28,20 @@ def main():
 
     # helper.display_im(frame_0)
 
-    frames = [frame_0, frame_1]
+
+
+    frames = []
+
+    path = 'C:/Users/russe/Dropbox/Wustenberg/!_Tandon/6643_Vision/Repos/rw2873_CV_Project_F/optical-flow-segmentation-analysis/src/images/Marple13_eig'
+    directory = os.fsencode(path)
+
+    for file in sorted(os.listdir(directory)):
+        filename = os.fsdecode(file)
+        if filename.endswith('.jpg'):
+            im = helper.import_im(path + '/' + filename)
+            frames.append(im)
+        if filename.endswith('20.jpg'):
+            break
 
     trajectories = tracking.create_trajectories(frames)
     
@@ -41,10 +57,11 @@ def main():
     for i in range(len(clustering)):
         trajectories[i].label = clustering[i]
 
+    image_functions.display_image(frame_0)
+
     
     fig = plt.figure(figsize=(7, 7))
     plt.imshow(frame_0, cmap='gray')
-
     for i in range(len(trajectories)):
         point = trajectories[i].history[0]
         label = trajectories[i].label
@@ -58,7 +75,6 @@ def main():
             plt.scatter(col,row,c='r')
         if label == 3:
             plt.scatter(col,row,c='g')
-    
     plt.show()
 
 

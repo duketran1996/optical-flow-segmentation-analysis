@@ -77,6 +77,9 @@ def create_trajectories(frames):
 
         # For all trajectories, we track them from frame (t) to (t+1).
         for curr_traj in trajectories:
+            if curr_traj.live == False:
+                continue
+
             curr_pos = curr_traj.get_curr_position()
 
             # sample the forward flow vector at the point's current location
