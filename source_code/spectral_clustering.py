@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.datasets import make_circles
 from sklearn.metrics import pairwise_distances
 
 sns.set_style('darkgrid', {'axes.facecolor': '.9'})
@@ -11,7 +12,7 @@ from scipy import linalg
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 from sklearn.neighbors import kneighbors_graph
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, SpectralClustering
 from scipy import sparse
 import sklearn as sk
 
@@ -110,6 +111,9 @@ sns.lineplot(x=k_candidates, y = inertias, alpha=0.5, ax=ax)
 ax.set(title='Inertia K-Means', ylabel='inertia', xlabel='k');    
 """
 
+#this function will return "tag" it will be the same size as the data set which generated
+#the affinity matrix, data set should have row number as total amount of data, in our case
+#an array of Track class object, trajectories will do fine.
 def spectral_clustering(df, n_neighbors, n_clusters):
     graph_laplacian = generate_graph_laplacian(df, n_neighbors)
     eigenvals, eigenvcts = compute_spectrum_graph_laplacian(graph_laplacian)
@@ -120,7 +124,11 @@ def spectral_clustering(df, n_neighbors, n_clusters):
     #this will add an extra column in the end of the each coord x and y displaying its
     #belonging cluster
     return cluster
-    #['cluster' + str(c) for c in cluster]
 
-#Add an extra column to each item of a Tra
-#trajectories.label = ['c_' + str(c) for c in cluster]
+#tag data by cluster result
+def data_tagging(data_set, cluster):
+    count = 0
+    for i in range(0, len(X)):
+        data_set[i].label = cluster[count]
+        print(cluster[count])
+        count += 1
