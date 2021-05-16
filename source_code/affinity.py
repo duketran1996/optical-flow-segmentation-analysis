@@ -140,8 +140,8 @@ def calculate_A(trajectories,gamma):
     A = np.zeros((len(trajectories),len(trajectories)))
 
     # FIX TO ALLOW FULL MATRIX
-    for i in range(190,197):
-        for j in range(190,197):
+    for i in range(A.shape[0]):
+        for j in range(A.shape[1]):
 
             if i < j: 
                 continue

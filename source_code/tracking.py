@@ -111,7 +111,7 @@ def create_trajectories(frames):
                 # if new_pos[0] == 4.0 and new_pos[0] == 4.0:
                 #     print("Trajectory at position ", curr_traj.curr_position, "moved to (", new_pos, ')')
                 #     print("FRAME:",frame)
-                curr_traj.set_position(int(np.round(new_pos[0])), int(np.round(new_pos[1])), frame+1)
+                curr_traj.set_position( int(new_pos[0])  ,  int(new_pos[1]), frame+1)
 
     return trajectories
 

@@ -90,6 +90,8 @@ def calculate_overlap(A: Track, B: Track):
 
 def find_greatest_distance_and_frame(A: Track, B: Track):
     overlap = calculate_overlap(A, B)
+
+    print(overlap)
     
     # if there's no overlap, we simply return -1.
     if overlap[0] == -1:
@@ -98,6 +100,13 @@ def find_greatest_distance_and_frame(A: Track, B: Track):
     # initialize variables for maximum difference in ddt, and the frame at which it occurs
     max_diff = 0
     max_diff_frame = overlap[0]
+
+
+    # print(overlap)
+    # print(A.history)
+    # print(A.trajectory_ddt)
+    # print(B.history)
+    # print(B.trajectory_ddt)
 
 
     # for every frame in which the trajectories overlap...

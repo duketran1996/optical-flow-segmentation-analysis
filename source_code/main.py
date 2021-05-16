@@ -17,22 +17,22 @@ def main():
     #threshold_frame_0 = threshold.threshold_eigenvalues(frame_0, 50000)
     #threshold_frame_1 = threshold.threshold_eigenvalues(frame_1, 50000)
 
-    frame_0 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_20.jpg')
-    frame_1 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_21.jpg')
-    frame_2 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_22.jpg')
-    frame_3 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_23.jpg')
-    frame_4 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_24.jpg')
+    # frame_0 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_20.jpg')
+    # frame_1 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_21.jpg')
+    frame_0 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_22.jpg')
+    frame_1 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_23.jpg')
+    # frame_4 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_24.jpg')
 
     # helper.display_im(frame_0)
 
-    frames = [frame_0, frame_1,frame_2,frame_3,frame_4]
+    frames = [frame_0, frame_1]
 
     trajectories = tracking.create_trajectories(frames)
     
     print(len(trajectories))
 
     A = affinity.calculate_A(trajectories, gamma = 0.1)
-    print(A[190:196,190:196])
+    # print(A[190:196,190:196])
     np.savetxt("A_out.csv", A, delimiter=",")
 
     clustering = SpectralClustering(n_clusters=3, assign_labels='discretize', random_state=0,affinity='precomputed').fit_predict(A)
