@@ -5,7 +5,7 @@ import helper
 import threshold
 import tracking
 import affinity
-from sklearn.cluster import SpectralClustering
+import spectral_clustering
 
 def main():
 
@@ -19,8 +19,8 @@ def main():
 
     # frame_0 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_20.jpg')
     # frame_1 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_21.jpg')
-    frame_0 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_22.jpg')
-    frame_1 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_23.jpg')
+    frame_0 = helper.import_im('C:/Users/russe/Dropbox/Wustenberg/!_Tandon/6643_Vision/Repos/rw2873_CV_Project_F/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_22.jpg')
+    frame_1 = helper.import_im('C:/Users/russe/Dropbox/Wustenberg/!_Tandon/6643_Vision/Repos/rw2873_CV_Project_F/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_23.jpg')
     # frame_4 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_24.jpg')
 
     # helper.display_im(frame_0)
@@ -35,17 +35,15 @@ def main():
     # print(A[190:196,190:196])
     np.savetxt("A_out.csv", A, delimiter=",")
 
-    clustering = SpectralClustering(n_clusters=3, assign_labels='discretize', random_state=0,affinity='precomputed').fit_predict(A)
+    clustering = spectral_clustering.spectral_clustering(df=A, n_neighbors=3, n_clusters=3)
     print(clustering)
+
+    for i in range(len(clustering)):
+        trajectories[i].label = clustering[i]
 
     
     fig = plt.figure(figsize=(7, 7))
     plt.imshow(frame_0, cmap='gray')
-
-
-
-    for i in range(len(clustering)):
-        trajectories[i].label = clustering[i]
 
     for i in range(len(trajectories)):
         point = trajectories[i].history[0]
