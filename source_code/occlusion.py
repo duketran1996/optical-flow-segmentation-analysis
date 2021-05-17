@@ -4,10 +4,6 @@ import math
 import matplotlib.pyplot as plt
 import flow_vis
 
-
-
-MAX_GREYSCALE = 255
-
 def import_im(filename):
     # Import image as grayscale by arg = 0
     im = cv.imread(filename, 0) * 1.0
@@ -24,11 +20,9 @@ def euclidean_norm(vector):
     return np.sqrt(vector[0]**2 + vector[1]**2)**2
 
 def partial_derivitive(matrix):
-    
     gradx = cv.Sobel(matrix,cv.CV_64F,1,0,ksize=3)
     grady = cv.Sobel(matrix,cv.CV_64F,0,1,ksize=3)
     
-
     return [gradx, grady]
 
 def inverse_flow(forward_flow, backward_flow):
@@ -135,6 +129,8 @@ def tracking_point_matrix_threshold(flow_forward, flow_inverse):
 
     return tracking_point
 
+#Very few point that can map inverse at exact location
+#Not use function
 def tracking_point_matrix_exact_point(flow_forward, flow_inverse):
     h, w, depth = flow_forward.shape
     tracking_point = {}
@@ -181,8 +177,8 @@ def main():
     #img_1 = import_im('./input_img/frame10_t.png')
     #img_2 = import_im('./input_img/frame11_t.png')
 
-    img_1 = import_im('./input_img/eig_marple13_20.jpeg')
-    img_2 = import_im('./input_img/eig_marple13_21.jpeg')
+    img_1 = import_im('../src/images/Marple13_eig/eig_marple13_20.jpeg')
+    img_2 = import_im('../src/images/Marple13_eig/eig_marple13_21.jpeg')
 
     frames_forward = [img_1, img_2]
     frames_backward = [img_2, img_1]

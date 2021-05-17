@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class Track:
     def __init__(self, start_row, start_col, start_frame):
         self.origin = (start_row, start_col, start_frame)
@@ -62,7 +61,6 @@ class Track:
 
             self.trajectory_ddt.append((fwd_diff_row, fwd_diff_col, curr_frame))
 
-
 def calculate_overlap(A: Track, B: Track):
     # Grab the start end end frames for the trajectory
     a_start = A.history[0][2]
@@ -80,11 +78,11 @@ def calculate_overlap(A: Track, B: Track):
 
     return overlap
 
-
 def find_greatest_distance_and_frame(A: Track, B: Track):
     overlap = calculate_overlap(A, B)
 
-    print(overlap)
+    #Keep here for debug
+    #print(overlap)
 
     # if there's no overlap, we simply return -1.
     if not overlap or overlap[0] == -1:
@@ -93,12 +91,6 @@ def find_greatest_distance_and_frame(A: Track, B: Track):
     # initialize variables for maximum difference in ddt, and the frame at which it occurs
     max_diff = 0
     max_diff_frame = overlap[0]
-
-    # print(overlap)
-    # print(A.history)
-    # print(A.trajectory_ddt)
-    # print(B.history)
-    # print(B.trajectory_ddt)
 
     # for every frame in which the trajectories overlap...
     for frame in range(overlap[0], overlap[-1] + 1):
@@ -125,7 +117,6 @@ def find_greatest_distance_and_frame(A: Track, B: Track):
             max_diff_frame = frame
 
     return max_diff, max_diff_frame
-
 
 def occlusion_detection(fwd_opflow: tuple, back_opflow: tuple) -> bool:
     occlusion = False

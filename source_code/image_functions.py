@@ -4,13 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plot
 import math
 
-
 def open_image(image_path: str):
     image = cv.imread(image_path, flags=cv.IMREAD_GRAYSCALE)
     image = ((image - np.min(image))
              * (1 / (np.max(image) - np.min(image)) * 1.0)).astype('float')
     return image
-
 
 def output_intensity_mapping(image: np.ndarray):
     output_im = np.zeros(image.shape, dtype=np.uint8)
@@ -24,7 +22,6 @@ def output_intensity_mapping(image: np.ndarray):
 
     return output_im
 
-
 def output_image(image: np.ndarray, save_name):
     image_out = output_intensity_mapping(image)
     fig = plot.figure(figsize=(7, 7))
@@ -32,7 +29,6 @@ def output_image(image: np.ndarray, save_name):
     plot.imshow(image_out, cmap='gray')
     plot.savefig('./results/' + save_name, bbox_inches='tight')
     plot.show()
-
 
 def unpack_video(video_path: str, output_file_name: str):
     cam = cv.VideoCapture(video_path)
@@ -55,7 +51,6 @@ def unpack_video(video_path: str, output_file_name: str):
                   + str(curr_frame) + '.jpg')
 
             cv.imwrite(name, frame)
-
             curr_frame += 1
         else:
             break
@@ -63,20 +58,16 @@ def unpack_video(video_path: str, output_file_name: str):
     cam.release()
     cv.destroyAllWindows()
 
-
 def zero_padding(num_layers: int, image: np.ndarray):
     return np.pad(image, ((num_layers, num_layers),
                           (num_layers, num_layers)),
                   'constant', constant_values=0)
 
-
 def get_derivative_x(image: np.ndarray) -> np.ndarray:
     return cv.Sobel(image, cv.CV_64F, 1, 0, ksize=3)
 
-
 def get_derivative_y(image: np.ndarray) -> np.ndarray:
     return cv.Sobel(image, cv.CV_64F, 0, 1, ksize=3)
-
 
 def threshold_image(image: np.ndarray, thresh: int,
                     below_val: int=0, above_val: int=255):
@@ -89,7 +80,6 @@ def threshold_image(image: np.ndarray, thresh: int,
                 image[ row, col] = above_val
 
     return out_image
-
 
 def threshold_eigenvalues(image: np.ndarray, thresh: float, window_size: int=3):
     im_ddx = get_derivative_x(image)
@@ -112,7 +102,6 @@ def threshold_eigenvalues(image: np.ndarray, thresh: float, window_size: int=3):
 
     return im_eig
 
-
 def get_neighborhood(row_index: int, col_index: int, ksize: int = 3):
     radius = np.floor(ksize / 2).astype(int)
     col_low = col_index - radius
@@ -128,7 +117,6 @@ def get_neighborhood(row_index: int, col_index: int, ksize: int = 3):
 
     return neighborhood
 
-
 def display_image(image: np.ndarray):
     image = output_intensity_mapping(image)
     # threshold_image(image, 145)
@@ -136,7 +124,6 @@ def display_image(image: np.ndarray):
     fig = plot.figure(figsize=(7, 7))
     plot.imshow(image, cmap='gray')
     plot.show()
-
 
 def get_flow_magnitude_array(op_flow: np.ndarray) -> np.ndarray:
     mag = np.zeros((op_flow.shape[0], op_flow.shape[1]))
@@ -149,13 +136,11 @@ def get_flow_magnitude_array(op_flow: np.ndarray) -> np.ndarray:
 
     return mag
 
-
 def get_gaussian_filter(size=5, sigma=1.0):
     kernel_1d = cv.getGaussianKernel(size, sigma, cv.CV_32F)
     kernel_1d = np.array(kernel_1d)
     kernel_2d = np.dot(kernel_1d, np.transpose(kernel_1d))
     return kernel_2d
-
 
 def get_flow_angle_array(op_flow: np.ndarray) -> np.ndarray:
     angles = np.zeros((op_flow.shape[0], op_flow.shape[1]))
@@ -168,7 +153,6 @@ def get_flow_angle_array(op_flow: np.ndarray) -> np.ndarray:
             angles[row][col] = np.arctan2(v, u) * (180 / np.pi)
 
     return angles
-
 
 def get_second_moment_matrix(coord_row, coord_col, image_ddx: np.ndarray,
                              image_ddy: np.ndarray, window_size: int):
@@ -199,11 +183,9 @@ def get_second_moment_matrix(coord_row, coord_col, image_ddx: np.ndarray,
 
     return second_moment_matrix
 
-
 def get_eigenvalues(matrix: np.ndarray):
     eigs = np.linalg.eig(matrix)
     return eigs[0]
-
 
 def bilinear_interpolation(off_grid_point_row, off_grid_point_col, array: np.ndarray):
     row_weight = off_grid_point_row - np.floor(off_grid_point_row)

@@ -17,49 +17,41 @@ def main():
     #frame_1 = helper.import_im('../src/images/FBMS_marple13/marple13_21.jpg')
 
     #Step 2: Threshold
+    #Note: This step take lots of time therefore we get result of this threshold for all 75 frames of maple13 in images/Marple13_eig/
     #threshold_frame_0 = threshold.threshold_eigenvalues(frame_0, 50000)
     #threshold_frame_1 = threshold.threshold_eigenvalues(frame_1, 50000)
 
-    # frame_0 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_20.jpg')
-    # frame_1 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_21.jpg')
-    frame_0 = helper.import_im('C:/Users/russe/Dropbox/Wustenberg/!_Tandon/6643_Vision/Repos/rw2873_CV_Project_F/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_22.jpg')
-    frame_1 = helper.import_im('C:/Users/russe/Dropbox/Wustenberg/!_Tandon/6643_Vision/Repos/rw2873_CV_Project_F/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_23.jpg')
-    # frame_4 = helper.import_im('/Users/andrewweng/developer/optical-flow-segmentation-analysis/src/images/Marple13_eig/eig_marple13_24.jpg')
+    #Hardcode frame
+    frame_0 = helper.import_im('../src/images/Marple13_eig/eig_marple13_22.jpg')
+    frame_1 = helper.import_im('../src/images/Marple13_eig/eig_marple13_23.jpg')
 
-    # helper.display_im(frame_0)
+    frames = [frame_0, frame_1]
 
-
-
-    frames = []
-
-    path = 'C:/Users/russe/Dropbox/Wustenberg/!_Tandon/6643_Vision/Repos/rw2873_CV_Project_F/optical-flow-segmentation-analysis/src/images/Marple13_eig'
+    #Grab frame of marple13 in order
+    path = '../src/images/Marple13_eig'
     directory = os.fsencode(path)
 
     for file in sorted(os.listdir(directory)):
         filename = os.fsdecode(file)
         if filename.endswith('.jpg'):
             im = helper.import_im(path + '/' + filename)
-            frames.append(im)
+            #frames.append(im)
         if filename.endswith('20.jpg'):
             break
 
+    #Step 3: Build trajectory and affinity
     trajectories = tracking.create_trajectories(frames)
-    
-    print(len(trajectories))
 
     A = affinity.calculate_A(trajectories, gamma = 0.1)
-    # print(A[190:196,190:196])
-    np.savetxt("A_out.csv", A, delimiter=",")
+    #np.savetxt("A_out.csv", A, delimiter=",")
 
+    #Step 4: Perform spectal clustering
     clustering = spectral_clustering.spectral_clustering(df=A, n_neighbors=3, n_clusters=3)
-    print(clustering)
 
     for i in range(len(clustering)):
         trajectories[i].label = clustering[i]
 
-    image_functions.display_image(frame_0)
-
-    
+    #Display result
     fig = plt.figure(figsize=(7, 7))
     plt.imshow(frame_0, cmap='gray')
     for i in range(len(trajectories)):

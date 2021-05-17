@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def import_im(filename):
-    # Import image as grayscale by arg = 0
     im = cv.imread(filename, 0) * 1.0
     return im
 
@@ -37,8 +36,6 @@ def get_gaussian_filter(size=5, sigma=1.0):
     kernel_1d = np.array(kernel_1d)
     kernel_2d = np.dot(kernel_1d, np.transpose(kernel_1d))
     return kernel_2d
-
-
 
 def calculate_forward_flow(frames):
     output_flow = np.ones_like(frames[0])

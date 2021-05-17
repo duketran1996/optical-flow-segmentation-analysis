@@ -1,13 +1,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 from sklearn.datasets import make_circles
 from sklearn.metrics import pairwise_distances
-
-sns.set_style('darkgrid', {'axes.facecolor': '.9'})
-sns.set_palette(palette='deep')
-sns_c = sns.color_palette(palette='deep')
 from scipy import linalg
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
@@ -15,6 +10,11 @@ from sklearn.neighbors import kneighbors_graph
 from sklearn.cluster import KMeans, SpectralClustering
 from scipy import sparse
 import sklearn as sk
+
+# import seaborn as sns
+# sns.set_style('darkgrid', {'axes.facecolor': '.9'})
+# sns.set_palette(palette='deep')
+# sns_c = sns.color_palette(palette='deep')
 
 #Step 1: Compute Graph Laplacian, result is generated from subtracting ajacency matrix from degree matrix
 #Generated using nearest neighbors, can be modified to interpolation

@@ -7,6 +7,7 @@
 #                  Andrew Weng          #
 #                  Ye Xu                #
 #########################################
+
 import numpy as np
 import image_functions
 import draw
@@ -14,8 +15,6 @@ import cv2 as cv
 import track
 import os
 import helper
-
- 
 
 def create_trajectories(frames):
 
@@ -38,15 +37,12 @@ def create_trajectories(frames):
                 trajectory.live = False
             continue
 
-        
-
         # Calculate the forward and backwards flow between the current and next frame
         flow_fore = cv.calcOpticalFlowFarneback(frames[frame], frames[frame + 1], flow_fore,
                                                 0.5, 5, 5, 5, 5, 1.1, cv.OPTFLOW_FARNEBACK_GAUSSIAN)
 
         flow_back = cv.calcOpticalFlowFarneback(frames[frame + 1], frames[frame], flow_back,
                                                 0.5, 5, 5, 5, 5, 1.1, cv.OPTFLOW_FARNEBACK_GAUSSIAN)
-
 
         flow_back_u, flow_back_v = cv.split(flow_back)
 
@@ -55,9 +51,6 @@ def create_trajectories(frames):
         # in order to keep trajectory numbers at a minimum.
         for row in range(0, frame_dimensions[0],16):
             for col in range(0, frame_dimensions[1],16):
-
-                
-
                 # check each pixel for flow response
                 if abs(flow_fore[row][col][0]) > 1e-20 or abs(flow_fore[row][col][1]) > 1e-20:
                     tracked = False
@@ -65,10 +58,7 @@ def create_trajectories(frames):
                     # check each trajectory to see if it is currently tracking that point
                     for trajectory in trajectories:
                         if trajectory.curr_position == (row, col):
-
-
                             tracked = True
-                            print("TODO")
                             break
 
                     # Create new trajectory if not currently tracked
@@ -108,23 +98,9 @@ def create_trajectories(frames):
                 # Kill if occluded (or if something went wrong)
                 curr_traj.live = False
             else:
-                # if curr_traj.curr_position[0] - new_pos[0] > 1 or curr_traj.curr_position[1] - new_pos[1] > 1:
-                    # 
-                # If not occluded, update the point
-                # if new_pos[0] == 4.0 and new_pos[0] == 4.0:
-                #     print("Trajectory at position ", curr_traj.curr_position, "moved to (", new_pos, ')')
-                #     print("FRAME:",frame)
                 curr_traj.set_position( int(new_pos[0])  ,  int(new_pos[1]), frame+1)
 
     return trajectories
-
-# draw.draw_trajectory(frame_0, trajectories, 0, 1, 5)
-# print('Done')
-# STEP 3) Construct affinity matrix
-
-# STEP 4) Populate affinity values
-
-# Step 5) Spectral Clustering
 
 def get_flow_response(coord: tuple, window: int, forward_flow: np.ndarray):
 	neighborhood = helper.get_neighborhood(coord[0], coord[1], window)
@@ -132,14 +108,11 @@ def get_flow_response(coord: tuple, window: int, forward_flow: np.ndarray):
 	flow_response = False
 
 	for neigh in range(0, len(neighborhood)):
-		
-
 		if forward_flow[neighborhood[neigh][0]][neighborhood[neigh][1]] > 1e-20:
 			flow_sum += forward_flow[neighborhood[neigh][0]][neighborhood[neigh][1]]
 		
 	if flow_sum >= window*window:
 		flow_response = True
-	
 
 	return flow_response
 
