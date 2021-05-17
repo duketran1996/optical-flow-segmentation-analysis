@@ -29,7 +29,8 @@ _ Other python files have smaller function that support other calculation as wel
 
 ## Documents
 
-_ All our findings and documetations can be locate in: Automatic_Object_Segmentation_Report.pdf
+_ A summary of overall of our project: Automatic_Object_Segmentation_Poster.pdf
+_ All our findings and documetations is located in: Automatic_Object_Segmentation_Report.pdf
 
 ## Contribution
 
